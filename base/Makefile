@@ -15,8 +15,9 @@ help: ## Display this help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-10s %s\n", $$1, $$2}'
 
 test: ## Run tests
-	@$(GOTEST) github.com/Zate/go-templates/$(BINARY_NAME)/...
+	@$(GOTEST) ./...
 build: ## Build the project
+	@chmod +x ./scripts/bash/*
 	@./scripts/bash/build.sh --version $(VERSION)
 clean: ## Clean up build objects
 	@$(GOCMD) clean
