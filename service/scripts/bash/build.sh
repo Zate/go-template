@@ -1,5 +1,5 @@
 #!/bin/bash
-bin=""
+bin=$(basename $(pwd))
 os=linux
 arch=amd64
 build_root=build/

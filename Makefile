@@ -2,16 +2,23 @@ GOCMD=go
 GOBUILD=$(GOCMD) build
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
-BINARY_NAME=aoc
+BINARY_NAME=$(shell basename $(CURDIR))
 
-.PHONY: test clean tidy run new del
+.PHONY: test clean tidy run new del help
 
-test: 
+help: ## Display this help message
+	@echo "Usage:"
+	@echo "  make <target>"
+	@echo ""
+	@echo "Targets:"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-10s %s\n", $$1, $$2}'
+
+test: ## Run tests
 	@$(GOTEST) github.com/Zate/go-templates/...
-clean: 
+clean: ## Clean up build objects
 	@$(GOCMD) clean
 	@rm -f $(BINARY_NAME)
-tidy:
+tidy: ## Run go tidy in all templates
 	@for d in $(shell ls -d */); do \
         d=$${d%?}; \
         $(GOCMD) work use $$d; \
@@ -34,10 +41,10 @@ tidy:
         cd ..; \
         $(GOCMD) work sync; \
     done
-run:
+run: ## Run the project
 	@$(GOBUILD) -o $(BINARY_NAME) -v .
 	@./$(BINARY_NAME)
-new:
+new: ## Create a new template from base using dir=newName
 ifndef dir
 	$(error newName is undefined)
 endif
@@ -48,7 +55,7 @@ endif
 	$(GOCMD) mod init github.com/Zate/go-templates/$(dir); \
 	$(GOCMD) mod tidy; \
 	cd ..;
-del:
+del: ## Delete a template using dir=delName
 ifndef dir
 	$(error existName is undefined)
 endif
