@@ -1,3 +1,3 @@
-package server
+package main
 
 func (s server) routes() {}

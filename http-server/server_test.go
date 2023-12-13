@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"context"
@@ -64,7 +64,7 @@ func TestNew(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			got := New(test.input...)
+			got := NewServer(test.input...)
 			if got == nil {
 				t.Errorf("New(%v) = nil; want %v", test.input, test.want)
 			}

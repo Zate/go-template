@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"context"
@@ -40,7 +40,7 @@ type Options struct {
 type Option func(*server)
 
 // New returns a new server.
-func New(options ...Option) *server {
+func NewServer(options ...Option) *server {
 	s := &server{
 		httpServer: &http.Server{
 			ReadTimeout:  defaultReadTimeout,

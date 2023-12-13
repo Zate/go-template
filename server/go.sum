@@ -1,0 +1,4 @@
+github.com/RedeployAB/go-template/templates/server v0.0.0-20230925171834-c8892605c3ac h1:/bIreUXFKAsh3SoqI7WHZfBIHcZOPnbkRMfPrXygd7Q=
+github.com/RedeployAB/go-template/templates/server v0.0.0-20230925171834-c8892605c3ac/go.mod h1:TaaSeZW4Eoa5bw6g5UECx/WN2g3wzgYPiTHpoPAzqDg=
+github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
+github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
