@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+  api:
+    image: cosmtrek/air
+    # working_dir value has to be the same of mapped volume
+    working_dir: /app
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/app
