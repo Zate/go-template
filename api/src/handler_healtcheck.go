@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -8,7 +9,7 @@ import (
 
 // HealthcheckHandler is a function that handles requests to the /healthcheck endpoint.
 func (s *Service) HealthcheckHandler(c echo.Context) error {
-	payload := "OK"
-	AddCustomAttributes(c, S.Any("payload", payload))
+	payload := []string{"OK"}
+	s.AddCustomAttributes(slog.Group(s.Path, s.Any("health", payload)))
 	return c.JSON(http.StatusOK, payload)
 }

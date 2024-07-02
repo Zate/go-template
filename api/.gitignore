@@ -23,5 +23,6 @@ go.work
 # build output
 build/
 
-src/service/
-src/tmp/
+src/service
+src/tmp
+src/build

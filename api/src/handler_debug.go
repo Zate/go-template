@@ -10,6 +10,8 @@ import (
 	"golang.org/x/exp/slices"
 )
 
+// TODO: Set this to only allow debug requests from localhost and only when running locally under comtek/air
+
 // DebugHandler is a function that handles requests to the /debug endpoint.
 func (s *Service) DebugHandler(c echo.Context) error {
 	env := os.Environ()
