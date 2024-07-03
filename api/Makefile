@@ -45,37 +45,41 @@ build: tidy test## Build the project
 # @./scripts/bash/build.sh --version $(VERSION)
 clean: ## Clean up build objects
 	@echo "Cleaning up..."
-	@cd src && $(GOCMD) clean -testcache && rm -rf build/* && rm -rf tmp/* && rm -rf service/*
+	@cd src && $(GOCMD) clean -testcache && rm -rf build/* && rm -rf tmp/* && rm -rf service/* && rm -rf service/.env
 	@cd ..
+	@rm -rf build/* && rm -rf tmp/* && rm -rf service/* && rm -rf service/.env
 
 tidy: ## Run go tidy
 	@echo "Tidying up..."
-	@cd src && $(GOCMD) mod tidy
-	@cd ..
+	@$(GOCMD) mod tidy
+
 run: env hotreload ## Run the service locally using hotreload
+
 ignore: ## Add build/ to .gitignore
 # check if there is a gitignore file, if not create one
 	@if [ ! -f .gitignore ]; then \
 		touch .gitignore; \
 	fi
 #check if .gitignore has "src/build/" in it, if not add it
-	@if ! grep -q "src/build/" .gitignore; then \
-		echo "src/build/" >> .gitignore; \
+	@if ! grep -q "src/build" .gitignore; then \
+		echo "src/build" >> .gitignore; \
 	fi
-# check if .gitignore has "src/service/" in it, if not add it
-	@if ! grep -q "src/service/" .gitignore; then \
-		echo "src/service/" >> .gitignore; \
+# check if .gitignore has "service" in it, if not add it
+	@if ! grep -q "service" .gitignore; then \
+		echo "service" >> .gitignore; \
 	fi
-# check if .gitignore has "src/tmp/" in it, if not add it
-	@if ! grep -q "src/tmp/" .gitignore; then \
-		echo "src/tmp/" >> .gitignore; \
+# check if .gitignore has "src/tmp" in it, if not add it
+	@if ! grep -q "tmp" .gitignore; then \
+		echo "tmp" >> .gitignore; \
 	fi
 
 env: ## Generate the src/service/.env file for local development
-	@mkdir -p src/service
-	@touch src/service/.env
+# check if the service directory exists, if not create it
+	@[[ -d service ]] || { mkdir -p service; }
+# check if the .env file exists, if not create it, if it does, remove it and create a new one
+	@[[ -f service/.env ]] && { rm service/.env; touch service/.env; } || { touch service/.env; }
 ifeq ($(shell [ -f .env_secrets ] && echo true),true)
-	@for i in `cat .env_secrets` ; do echo "$$i" >> src/service/.env ; done
+	@for i in `cat .env_secrets` ; do echo "$$i" >> service/.env ; done
 endif
 
 localtest: ## Run any tests in the src/tests directory on your local machine

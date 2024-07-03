@@ -1,4 +1,4 @@
-module github.com/zate/go-template/api/src
+module github.com/zate/go-template/api
 
 go 1.22
 
